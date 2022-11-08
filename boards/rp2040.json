@@ -20,7 +20,7 @@
   },
   "frameworks": [
     "arduino",
-    "freertos"
+    "freertos-kernel"
   ],
   "name": "Raspberry Pi Pico",
   "upload": {

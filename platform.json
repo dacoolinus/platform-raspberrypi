@@ -1,6 +1,6 @@
 {
-  "name": "raspberrypi",
-  "title": "Raspberry Pi RP2040",
+  "name": "rp2040",
+  "title": "RP2040",
   "description": "RP2040 is a low-cost, high-performance microcontroller device with a large on-chip memory, symmetric dual-core processor complex, and rich peripheral.",
   "homepage": "https://www.raspberrypi.org/documentation/rp2040/getting-started/",
   "license": "Apache-2.0",
@@ -23,6 +23,10 @@
     "arduino": {
       "package": "framework-arduino-mbed",
       "script": "builder/frameworks/arduino/mbed-core/arduino-core-mbed.py"
+    },
+    "freertos-kernel":{
+      "package": "framework-freertos-kernel",
+      "script": "builder/frameworks/freertos-kernel.py"
     }
   },
   "packages": {
@@ -37,8 +41,15 @@
       "owner": "platformio",
       "version": "~3.1.1"
     },
+    "framework-freertos-kernel":{
+      "type": "framework",
+      "optional": true,
+      "owner": "dacoolinus",
+      "version": "0.0.1"
+    },
     "tool-rp2040tools": {
       "type": "uploader",
+      "optional": true,
       "owner": "platformio",
       "version": "~1.0.2"
     },

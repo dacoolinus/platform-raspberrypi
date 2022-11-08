@@ -17,7 +17,7 @@ import platform
 from platformio.public import PlatformBase
 
 
-class RaspberrypiPlatform(PlatformBase):
+class Rp2040Platform(PlatformBase):
 
     def is_embedded(self):
         return True
@@ -32,8 +32,14 @@ class RaspberrypiPlatform(PlatformBase):
             board_config = self.board_config(variables.get("board"))
             jlink_conds.extend([
                 "jlink" in board_config.get(key, "")
+                
                 for key in ("debug.default_tools", "upload.protocol")
             ])
+
+        #frameworks = variables.get("pioframework",[])
+        #if "freertos-kernel" in frameworks:
+        #        self.packages["framework-freertos-kernel"]["optional"] = False
+
         jlink_pkgname = "tool-jlink"
         if not any(jlink_conds) and jlink_pkgname in self.packages:
             del self.packages[jlink_pkgname]

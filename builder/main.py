@@ -108,11 +108,13 @@ env.Append(
 
 if not env.get("PIOFRAMEWORK"):
     env.SConscript("frameworks/_bare.py")
-
+elif 'freertos-kernel' in env.get("PIOFRAMEWORK"):
+    env.SConscript("frameworks/freertos-kernel.py")
+else:
+        print("This is the FW" + str(env.get("PIOFRAMEWORK")))
 #
 # Target: Build executable and linkable firmware
 #
-
 target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
     target_elf = join("$BUILD_DIR", "${PROGNAME}.elf")
