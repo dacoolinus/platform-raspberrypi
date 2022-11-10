@@ -36,10 +36,6 @@ class Rp2040Platform(PlatformBase):
                 for key in ("debug.default_tools", "upload.protocol")
             ])
 
-        #frameworks = variables.get("pioframework",[])
-        #if "freertos-kernel" in frameworks:
-        #        self.packages["framework-freertos-kernel"]["optional"] = False
-
         jlink_pkgname = "tool-jlink"
         if not any(jlink_conds) and jlink_pkgname in self.packages:
             del self.packages[jlink_pkgname]
@@ -64,7 +60,7 @@ class Rp2040Platform(PlatformBase):
         if "tools" not in debug:
             debug["tools"] = {}
 
-        for link in ("cmsis-dap", "jlink", "raspberrypi-swd"):
+        for link in ("cmsis-dap", "jlink", "raspberrypi-swd", "picoprobe"):
             if link not in upload_protocols or link in debug["tools"]:
                 continue
 
@@ -93,7 +89,7 @@ class Rp2040Platform(PlatformBase):
                 debug["tools"][link] = {
                     "server": {
                         "executable": "bin/openocd",
-                        "package": "tool-openocd-raspberrypi",
+                        "package": "tool-openocd-rp2040-earlephilhower",
                         "arguments": [
                             "-s", "$PACKAGE_DIR/share/openocd/scripts",
                             "-f", "interface/%s.cfg" % link,
@@ -109,7 +105,7 @@ class Rp2040Platform(PlatformBase):
         adapter_speed = debug_config.speed or "5000"
         server_options = debug_config.server or {}
         server_arguments = server_options.get("arguments", [])
-        if "interface/cmsis-dap.cfg" in server_arguments:
+        if "interface/cmsis-dap.cfg" in server_arguments or "interface/picoprobe.cfg" in server_arguments:
             server_arguments.extend(
                 ["-c", "adapter speed %s" % adapter_speed]
             )

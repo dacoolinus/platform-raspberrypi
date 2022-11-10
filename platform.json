@@ -24,6 +24,10 @@
       "package": "framework-arduino-mbed",
       "script": "builder/frameworks/arduino/mbed-core/arduino-core-mbed.py"
     },
+    "pico-sdk":{
+      "package": "framework-pico-sdk",
+      "script": "builder/frameworks/pico-sdk.py"
+    },
     "freertos-kernel":{
       "package": "framework-freertos-kernel",
       "script": "builder/frameworks/freertos-kernel.py"
@@ -34,6 +38,12 @@
       "type": "toolchain",
       "owner": "platformio",
       "version": "~1.90201.0"
+    },
+    "toolchain-rp2040-earlephilhower":{
+      "type": "toolchain",
+      "optional": true,
+      "owner": "earlephilhower",
+      "version": ">=1.90201.0, <1.9032.0"
     },
     "framework-arduino-mbed": {
       "type": "framework",
@@ -47,6 +57,18 @@
       "owner": "dacoolinus",
       "version": "0.0.1"
     },
+    "framework-pico-sdk":{
+      "framework": "pico-sdk",
+      "optional": true,
+      "owner": "dacoolinus",
+      "version": "0.0.1"
+    },
+    "framework-arduinopico": {
+      "type": "framework",
+      "optional": true,
+      "owner": "earlephilhower",
+      "version": "https://github.com/earlephilhower/arduino-pico.git#ec7631096b667b8d40663c6da4667e3e0aea5a97"
+    },
     "tool-rp2040tools": {
       "type": "uploader",
       "optional": true,
@@ -59,11 +81,23 @@
       "owner": "platformio",
       "version": "~2.1100.0"
     },
+    "tool-openocd-rp2040-earlephilhower": {
+      "type": "uploader",
+      "optional": true,
+      "owner": "earlephilhower",
+      "version": "~5.100300.0"
+    },
     "tool-jlink": {
       "type": "uploader",
       "optional": true,
       "owner": "platformio",
       "version": "^1.72000.0"
+    },
+    "tool-mklittlefs-rp2040-earlephilhower": {
+      "type": "uploader",
+      "optional": true,
+      "owner": "earlephilhower",
+      "version": "~5.100300.0"
     }
   }
 }
