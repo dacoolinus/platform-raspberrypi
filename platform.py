@@ -17,6 +17,14 @@
 import platform
 
 from platformio.public import PlatformBase
+from os.path import join
+
+def get_system():
+    sys_dir = platform.system() + '_' + platform.machine()
+    sys_dir = sys_dir.lower()
+    if 'windows' in sys_dir:
+        sys_dir = 'windows'
+    return sys_dir
 
 
 class RaspberrypiPlatform(PlatformBase):
@@ -60,9 +68,19 @@ class RaspberrypiPlatform(PlatformBase):
         if "tools" not in debug:
             debug["tools"] = {}
 
-        for link in ("cmsis-dap", "jlink", "raspberrypi-swd"):
+        for link in ("cmsis-dap", "jlink", "raspberrypi-swd", "picoprobe"):
             if link not in upload_protocols or link in debug["tools"]:
                 continue
+
+            if link == "picoprobe":
+                debug["tools"][link] = {
+                    "server": {
+                        "package": "tool-pico-openocd",
+                        "executable": join(get_system(), "picoprobe"),
+                        "arguments": []
+                    },
+                    "onboard": link in debug.get("onboard_tools", [])
+                }
 
             if link == "jlink":
                 assert debug.get("jlink_device"), (

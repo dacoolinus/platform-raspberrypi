@@ -23,6 +23,10 @@
     "arduino": {
       "package": "framework-arduino-mbed",
       "script": "builder/frameworks/arduino/mbed-core/arduino-core-mbed.py"
+    },
+    "freertos": {
+      "package": "framework-freertos",
+      "script": "builder/frameworks/RTOS/freertos-core.py"
     }
   },
   "packages": {
@@ -53,6 +57,11 @@
       "optional": true,
       "owner": "platformio",
       "version": "^1.72000.0"
+    },
+    "tool-pico-openocd": {
+      "optional": true,
+      "type": "debugger",
+      "version": "https://github.com/Wiz-IO/tool-pico-openocd"
     }
   }
 }
