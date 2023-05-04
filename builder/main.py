@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# pyright: reportShadowedImports=false
+
 import sys
 from platform import system
 from os import makedirs
@@ -21,6 +23,8 @@ from platformio.public import list_serial_ports
 
 from SCons.Script import (ARGUMENTS, COMMAND_LINE_TARGETS, AlwaysBuild,
                           Builder, Default, DefaultEnvironment)
+
+from build_tools import dev_pioasm
 
 
 def BeforeUpload(target, source, env):  # pylint: disable=W0613,W0621
@@ -54,6 +58,8 @@ def generate_uf2(target, source, env):
 env = DefaultEnvironment()
 platform = env.PioPlatform()
 board = env.BoardConfig()
+
+dev_pioasm(env)
 
 env.Replace(
     AR="arm-none-eabi-ar",

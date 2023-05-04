@@ -33,3 +33,10 @@ board = ...
 # Configuration
 
 Please navigate to [documentation](https://docs.platformio.org/page/platforms/raspberrypi.html).
+
+
+# Licensing and Credits
+ - framework-raspberrypi is by platformio and licensed under Apache License 2.0
+ - The Pico-SDK is by Raspberry Pi (Trading) Ltd and licensed under the BSD 3-Clause License
+ - FreeRTOS is by Amazon.com, Inc or its affiliates, and distributed under the MIT License
+ - WIZO-PICO was by WIZ-IO and was distributed under the Apache License 2.0
