@@ -37,6 +37,18 @@
       "owner": "platformio",
       "version": "~4.0.2"
     },
+    "framework-arduinopico": {
+      "type": "framework",
+      "optional": true,
+      "owner": "EarlePhilHower",
+      "version": "~3.0.0"
+    },
+    "framework-zephyr": {
+      "type": "framework",
+      "optional": true,
+      "owner": "platformio",
+      "version": "~1.0.0"
+    },
     "tool-rp2040tools": {
       "type": "uploader",
       "owner": "platformio",
