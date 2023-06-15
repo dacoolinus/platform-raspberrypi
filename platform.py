@@ -19,7 +19,7 @@ import platform
 from platformio.public import PlatformBase
 
 
-class RaspberrypiPlatform(PlatformBase):
+class PlatformpicoPlatform(PlatformBase):
 
     def is_embedded(self):
         return True
@@ -60,7 +60,7 @@ class RaspberrypiPlatform(PlatformBase):
         if "tools" not in debug:
             debug["tools"] = {}
 
-        for link in ("cmsis-dap", "jlink", "raspberrypi-swd"):
+        for link in ("cmsis-dap", "jlink", "raspberrypi-swd", "picoprobe"):
             if link not in upload_protocols or link in debug["tools"]:
                 continue
 
@@ -70,26 +70,43 @@ class RaspberrypiPlatform(PlatformBase):
                 debug["tools"][link] = {
                     "server": {
                         "package": "tool-jlink",
+                        "executable": ("JLinkGDBServerCL.exe"
+                                       if platform.system() == "Windows" else
+                                       "JLinkGDBServer"
+                        ),
                         "arguments": [
                             "-singlerun",
                             "-if", "SWD",
                             "-select", "USB",
                             "-device", debug.get("jlink_device"),
                             "-port", "2331"
-                        ],
-                        "executable": ("JLinkGDBServerCL.exe"
-                                       if platform.system() == "Windows" else
-                                       "JLinkGDBServer")
+                        ]
                     },
                     "onboard": link in debug.get("onboard_tools", [])
                 }
+            if link == "picoprobe":
+                debug["tools"][link] = {
+                    "server": {
+                        "package": "tool-pico-openocd",
+                        "executable": ("picoprobe.exe"
+                                        if platform.system() == "Windows" else
+                                        "picoprobe"
+                        ),
+                        "arguments" : [
+                            "-s", "$PACKAGE_DIR/share/openocd/scripts",
+                            "-f", "interface/%s.cfg" % link,
+                            "-f", "target/%s" % debug.get("openocd_target") 
+                        ]
+                    }
+                }
+
             else:
                 openocd_target = debug.get("openocd_target")
                 assert openocd_target, ("Missing target configuration for %s" % board.id)
                 debug["tools"][link] = {
                     "server": {
-                        "executable": "bin/openocd",
                         "package": "tool-openocd-raspberrypi",
+                        "executable": "bin/openocd",
                         "arguments": [
                             "-s", "$PACKAGE_DIR/share/openocd/scripts",
                             "-f", "interface/%s.cfg" % link,

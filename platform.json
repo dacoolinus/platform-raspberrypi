@@ -1,5 +1,5 @@
 {
-  "name": "raspberrypi",
+  "name": "PlatformPico",
   "title": "Raspberry Pi RP2040",
   "description": "RP2040 is a low-cost, high-performance microcontroller device with a large on-chip memory, symmetric dual-core processor complex, and rich peripheral.",
   "homepage": "https://www.raspberrypi.org/documentation/rp2040/getting-started/",
@@ -43,6 +43,10 @@
       "owner": "EarlePhilHower",
       "version": "~3.0.0"
     },
+    "framework-wizio-pico": {
+      "type": "framework",
+      "version": "https://github.com/Wiz-IO/framework-wizio-pico.git"
+    },
     "framework-zephyr": {
       "type": "framework",
       "optional": true,
@@ -60,6 +64,15 @@
       "owner": "platformio",
       "version": "~2.1100.0"
     },
+    "tool-wizio-pico": {
+      "type": "uploader",
+      "version": "https://github.com/Wiz-IO/tool-wizio-pico.git"
+    }, 
+    "tool-pico-openocd": {
+      "optional": true,
+      "type": "debugger",
+      "version": "https://github.com/Wiz-IO/tool-pico-openocd"
+    }, 
     "tool-jlink": {
       "type": "uploader",
       "optional": true,

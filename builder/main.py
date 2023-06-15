@@ -24,7 +24,7 @@ from platformio.public import list_serial_ports
 from SCons.Script import (ARGUMENTS, COMMAND_LINE_TARGETS, AlwaysBuild,
                           Builder, Default, DefaultEnvironment)
 
-from build_tools import dev_pioasm
+from build_tools.wpioasm import dev_pioasm
 
 
 def BeforeUpload(target, source, env):  # pylint: disable=W0613,W0621
