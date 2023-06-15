@@ -88,7 +88,7 @@ class PlatformpicoPlatform(PlatformBase):
                 debug["tools"][link] = {
                     "server": {
                         "package": "tool-pico-openocd",
-                        "executable": ("picoprobe.exe"
+                        "executable": ("$PACKAGE_DIR/windows/picoprobe.exe"
                                         if platform.system() == "Windows" else
                                         "picoprobe"
                         ),
@@ -97,7 +97,7 @@ class PlatformpicoPlatform(PlatformBase):
                             "-f", "interface/%s.cfg" % link,
                             "-f", "target/%s" % debug.get("openocd_target") 
                         ]
-                    }
+                    },
                 }
 
             else:

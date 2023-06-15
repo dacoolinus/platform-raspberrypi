@@ -205,6 +205,37 @@ elif upload_protocol.startswith("jlink"):
     upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
     upload_source = env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf)
 
+elif upload_protocol == "picoprobe":
+    openocd_args = [
+        "-d%d" % (2 if int(ARGUMENTS.get("PIOVERBOSE", 0)) else 1)
+    ]
+    openocd_args.extend(
+        debug_tools.get(upload_protocol).get("server").get("arguments", []))
+    if env.GetProjectOption("debug_speed"):
+        openocd_args.extend(
+            ["-c", "adapter speed %s" % env.GetProjectOption("debug_speed")]
+        )
+    openocd_args.extend([
+        "-c", "program {$SOURCE} %s verify reset; shutdown;" %
+        board.get("upload.offset_address", "")
+    ])
+    openocd_args = [
+        f.replace("$PACKAGE_DIR", platform.get_package_dir(
+            "tool-pico-openocd") or "")
+        for f in openocd_args
+    ]
+
+    openocd_executable = debug_tools.get(upload_protocol).get("server").get("executable").replace("$PACKAGE_DIR", platform.get_package_dir(
+            "tool-pico-openocd") or "")
+    print(openocd_executable)
+    env.Replace(
+        UPLOADER=openocd_executable,
+        UPLOADERFLAGS=openocd_args,
+        UPLOADCMD="$UPLOADER $UPLOADERFLAGS")
+    if not board.get("upload").get("offset_address"):
+        upload_source = target_elf
+    upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
+
 elif upload_protocol in debug_tools:
     openocd_args = [
         "-d%d" % (2 if int(ARGUMENTS.get("PIOVERBOSE", 0)) else 1)
