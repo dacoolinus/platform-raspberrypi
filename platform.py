@@ -85,17 +85,19 @@ class PlatformpicoPlatform(PlatformBase):
                     "onboard": link in debug.get("onboard_tools", [])
                 }
             if link == "picoprobe":
+                openocd_target = debug.get("openocd_target")
+                assert openocd_target, ("Missing target configuration for %s" % board.id)
                 debug["tools"][link] = {
                     "server": {
                         "package": "tool-pico-openocd",
-                        "executable": ("$PACKAGE_DIR/windows/picoprobe.exe"
+                        "executable": ("windows/picoprobe.exe"
                                         if platform.system() == "Windows" else
                                         "picoprobe"
                         ),
                         "arguments" : [
                             "-s", "$PACKAGE_DIR/share/openocd/scripts",
                             "-f", "interface/%s.cfg" % link,
-                            "-f", "target/%s" % debug.get("openocd_target") 
+                            "-f", "target/%s" % openocd_target
                         ]
                     },
                 }
@@ -116,6 +118,7 @@ class PlatformpicoPlatform(PlatformBase):
                 }
 
         board.manifest["debug"] = debug
+
         return board
 
     def configure_debug_session(self, debug_config):
@@ -130,3 +133,5 @@ class PlatformpicoPlatform(PlatformBase):
             server_arguments.extend(
                 ["-speed", adapter_speed]
             )
+        elif "interface/picoprobe.cfg" in server_arguments:
+            print("CONFIGURE DEBUG FRAMEWORK")

@@ -70,7 +70,7 @@
     }, 
     "tool-pico-openocd": {
       "optional": true,
-      "type": "debugger",
+      "type": "uploader",
       "version": "https://github.com/Wiz-IO/tool-pico-openocd"
     }, 
     "tool-jlink": {
