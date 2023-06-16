@@ -95,6 +95,7 @@ class PlatformpicoPlatform(PlatformBase):
                                         "picoprobe"
                         ),
                         "arguments" : [
+                            "-s", "$PACKAGE_DIR",
                             "-s", "$PACKAGE_DIR/share/openocd/scripts",
                             "-f", "interface/%s.cfg" % link,
                             "-f", "target/%s" % openocd_target

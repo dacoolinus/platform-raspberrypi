@@ -59,7 +59,7 @@ env = DefaultEnvironment()
 platform = env.PioPlatform()
 board = env.BoardConfig()
 
-if(env.get("PIOFRAMEWORK") == "wizio-pico"):
+if(env.get("PIOFRAMEWORK")[0] == "wizio-pico"):
     dev_pioasm(env)
 
 env.Replace(
@@ -226,8 +226,8 @@ elif upload_protocol == "picoprobe":
         for f in openocd_args
     ]
 
-    openocd_executable = debug_tools.get(upload_protocol).get("server").get("executable").replace("$PACKAGE_DIR", platform.get_package_dir(
-            "tool-pico-openocd") or "")
+    openocd_executable = join(platform.get_package_dir(
+            "tool-pico-openocd"), debug_tools.get(upload_protocol).get("server").get("executable"))
     print(openocd_executable)
     env.Replace(
         UPLOADER=openocd_executable,
