@@ -23,6 +23,14 @@
     "arduino": {
       "package": "framework-arduino-mbed",
       "script": "builder/frameworks/arduino/mbed-core/arduino-core-mbed.py"
+    },
+    "wizio-pico":{
+      "package": "framework-wizio-pico",
+      "script": "builder/frameworks/wizio-pico/sdk.py"
+    },
+    "pico-sdk":{
+      "package": "framework-pico-sdk",
+      "script": "builder/frameworks/pico-sdk/pico-sdk-core.py"
     }
   },
   "packages": {
@@ -78,6 +86,12 @@
       "optional": true,
       "owner": "platformio",
       "version": "^1.72000.0"
+    },
+    "framework-pico-sdk":{
+      "type": "framework",
+      "optional": true,
+      "owner": "dacoolinus",
+      "version": "https://github.com/dacoolinus/framework-pico-sdk"
     }
   }
 }

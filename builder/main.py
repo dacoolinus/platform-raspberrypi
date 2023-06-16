@@ -59,7 +59,8 @@ env = DefaultEnvironment()
 platform = env.PioPlatform()
 board = env.BoardConfig()
 
-dev_pioasm(env)
+if(env.get("PIOFRAMEWORK") == "wizio-pico"):
+    dev_pioasm(env)
 
 env.Replace(
     AR="arm-none-eabi-ar",

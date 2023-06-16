@@ -20,7 +20,8 @@
   },
   "frameworks": [
     "arduino",
-    "pico-sdk"
+    "pico-sdk",
+    "wizio-pico"
   ],
   "name": "Raspberry Pi Pico",
   "upload": {
